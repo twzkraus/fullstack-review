@@ -10,22 +10,29 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
+  }
 
+  componentDidMount() {
+    $.get({
+      url: '/repos',
+      success: (data) => {
+        let newList = this.state.repos.concat(data);
+        this.setState({
+          repos: newList,
+        });
+        this.render();
+      }
+    })
   }
 
   search (term) {
     console.log(`${term} was searched`);
     // send a post request to /repos
 
-    let options = {username: term};
-    console.log(options);
-    // $.post('/repos', JSON.stringify(options));
-
     $.ajax({
       method: 'POST',
       data: {username: term},
       url: '/repos'
-      // having trouble pulling the data out of this request on backend
     });
   }
 
