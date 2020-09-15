@@ -24,7 +24,6 @@ let save = (records) => {
       // could be a pain point: will 'empty' return an error, or an empty array?
       if (err) return console.error(err);
       // if results array is empty, save this one
-      debugger;
       if (!sameIdElements.length) {
         let thisInstance = new Repo({
           id: rec.id,
@@ -46,4 +45,14 @@ let save = (records) => {
   });
 };
 
+let retrieve = (numRecords) => {
+  return Repo.find()
+    .sort({forks_count: -1})
+    .limit(numRecords)
+    .exec((err, records) => {
+      return records;
+    });
+};
+
 module.exports.save = save;
+module.exports.retrieve = retrieve;
