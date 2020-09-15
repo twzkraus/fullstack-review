@@ -1,16 +1,49 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
-let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
+
+let repoSchema = new mongoose.Schema({
+  id: Number,
+  name: String,
+  owner_name: String,
+  url: String,
+  created_at: Date,
+  watchers_count: Number,
+  forks_count: Number,
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
-}
+let save = (records) => {
+  // records could be one or many records
+  records.forEach(rec => {
+    // check in repo for records with this id
+    Repo.find({id: rec.id}, (err, sameIdElements) => {
+      // could be a pain point: will 'empty' return an error, or an empty array?
+      if (err) return console.error(err);
+      // if results array is empty, save this one
+      debugger;
+      if (!sameIdElements.length) {
+        let thisInstance = new Repo({
+          id: rec.id,
+          name: rec.name,
+          owner_name: rec.owner.login,
+          url: rec.url,
+          created_at: rec.created_at,
+          watchers_count: rec.watchers_count,
+          forks_count: rec.forks_count,
+        });
+        thisInstance.save((err, saved) => {
+          if (err) return console.error(err);
+          console.log(`Repo with id #${rec.id} saved to Mongo DB`);
+        });
+      } else {
+        console.log(`Repo id #${rec.id} not saved to Mongo DB--a record with this id already exists`);
+      }
+    });
+  });
+};
 
 module.exports.save = save;
