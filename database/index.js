@@ -3,12 +3,11 @@ mongoose.connect('mongodb://localhost/fetcher');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
 let repoSchema = new mongoose.Schema({
   id: Number,
   name: String,
   owner_name: String,
-  url: String,
+  html_url: String,
   created_at: Date,
   watchers_count: Number,
   forks_count: Number,
@@ -29,7 +28,8 @@ let save = (records) => {
           id: rec.id,
           name: rec.name,
           owner_name: rec.owner.login,
-          url: rec.url,
+          // change not yet implemented: switch url to html_url
+          html_url: rec.html_url,
           created_at: rec.created_at,
           watchers_count: rec.watchers_count,
           forks_count: rec.forks_count,

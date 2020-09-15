@@ -7,7 +7,7 @@ const RepoList = ({repos}) => (
     There are {repos.length} repos.
     <div id="repo-container">
         {repos.map((repo) =>
-          <RepoItem data={repo}
+          <RepoItem repo={repo}
                     key={repo.id} />
         )}
     </div>

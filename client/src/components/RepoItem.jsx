@@ -1,8 +1,8 @@
 import React from 'react';
 
-const RepoItem = ({data}) => (
+const RepoItem = ({repo}) => (
   <div>
-    <h5>{data.name}</h5>
+    <h5><a href={repo.html_url} >{repo.name}</a></h5>
     <p>{() => {console.log('repo item')}}</p>
   </div>
 )
