@@ -17,7 +17,6 @@ class App extends React.Component {
   }
 
   getTop25Repos() {
-    console.log('getting top repos');
     let app = this;
     $.get({
       url: '/repos',
@@ -26,14 +25,12 @@ class App extends React.Component {
         app.setState({
           repos: data,
         });
-        console.log('in top 25 success cb');
         this.render();
       }
     })
   }
 
   search (term) {
-    console.log(`${term} was searched`);
     // send a post request to /repos
     let app = this;
 
@@ -41,6 +38,7 @@ class App extends React.Component {
       method: 'POST',
       data: {username: term},
       url: '/repos',
+      // wait on success cb to ensure data has been saved
       success: () => { setTimeout(app.getTop25Repos(), 3000) }
     });
   }
