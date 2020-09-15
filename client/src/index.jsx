@@ -13,13 +13,20 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.getTop25Repos();
+  }
+
+  getTop25Repos() {
+    console.log('getting top repos');
+    let app = this;
     $.get({
       url: '/repos',
       success: (data) => {
-        let newList = this.state.repos.concat(data);
-        this.setState({
-          repos: newList,
+        // debugger;
+        app.setState({
+          repos: data,
         });
+        console.log('in top 25 success cb');
         this.render();
       }
     })
@@ -28,11 +35,13 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // send a post request to /repos
+    let app = this;
 
     $.ajax({
       method: 'POST',
       data: {username: term},
-      url: '/repos'
+      url: '/repos',
+      success: () => { setTimeout(app.getTop25Repos(), 3000) }
     });
   }
 

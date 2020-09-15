@@ -15,6 +15,8 @@ app.post('/repos', function (req, res) {
   github.getReposByUsername(username)
     .then(allRepos => {
       database.save(allRepos.data);
+      res.writeHead(200);
+      res.send();
     });
 });
 
