@@ -6,6 +6,8 @@ let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static('client/dist'));
+
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {

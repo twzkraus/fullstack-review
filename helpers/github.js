@@ -1,8 +1,11 @@
 const axios = require('axios');
 
+// uncomment this if running locally:
+// var TOKEN;
+
 new Promise((resolve, reject) => { TOKEN }).catch(() => {
   const config = require('../config.js')
-  const TOKEN = config.TOKEN;
+  TOKEN = config.TOKEN;
 }).then(() => {});
 
 let getReposByUsername = (username) => {
