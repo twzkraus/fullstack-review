@@ -3,7 +3,7 @@ const axios = require('axios');
 new Promise((resolve, reject) => { TOKEN }).catch(() => {
   const config = require('../config.js')
   const TOKEN = config.TOKEN;
-});
+}).then(() => {});
 
 let getReposByUsername = (username) => {
   // TODO - Use the axios module to request repos for a specific
