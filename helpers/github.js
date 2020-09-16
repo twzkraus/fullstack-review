@@ -1,5 +1,9 @@
 const axios = require('axios');
-const config = require('../config.js');
+
+new Promise((resolve, reject) => { TOKEN }).catch(() => {
+  const config = require('../config.js')
+  const TOKEN = config.TOKEN;
+});
 
 let getReposByUsername = (username) => {
   // TODO - Use the axios module to request repos for a specific
@@ -10,7 +14,7 @@ let getReposByUsername = (username) => {
   let options = {
     headers: {
       'User-Agent': 'request',
-      'Authorization': `token ${config.TOKEN}`
+      'Authorization': `token ${TOKEN}`
     }
   };
 
